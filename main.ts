@@ -116,9 +116,9 @@ export default class WordCards extends Plugin {
 
         // 先确保文件夹存在
         await this.createFolderIfNotExists(path.dirname(vaultPath));
-
+        const imgurl="\n\n---\n\n" + `![${result.split("|")[0]}](${imageUrl})`;
         // 创建/追加 文件
-        await this.createOrAppendFile(vaultPath, wordName, contentPart);
+        await this.createOrAppendFile(vaultPath, wordName, imgurl);
         return;
       } else {
         // 如果没有活动文件，但剪贴板有文本，就直接创建
@@ -298,7 +298,8 @@ export default class WordCards extends Plugin {
         const vaultPath = `${this.targetFolderPath}/${this.settings.sourceLanguage}/${fileName}`;
 
         await this.createFolderIfNotExists(path.dirname(vaultPath));
-        await this.createOrAppendFile(vaultPath, wordName, contentPart);
+        const imgurl="\n\n---\n\n" + `![${result.split("|")[0]}](${imageUrl})`;
+        await this.createOrAppendFile(vaultPath, wordName, imgurl);
         return;
       }
 
@@ -354,7 +355,8 @@ export default class WordCards extends Plugin {
       const vaultPath = `${this.targetFolderPath}/${this.settings.sourceLanguage}/${fileName}`;
 
       await this.createFolderIfNotExists(path.dirname(vaultPath));
-      await this.createOrAppendFile(vaultPath, wordName, contentPart);
+      const imgurl="\n\n---\n\n" + `![${result.split("|")[0]}](${imageUrl})`;
+      await this.createOrAppendFile(vaultPath, wordName, imgurl);
       return;
     }
 
@@ -435,7 +437,7 @@ export default class WordCards extends Plugin {
           content: [
             {
               type: "text",
-              text: `将图片中的主体或者文字用${this.settings.sourceLanguage}进行描述。输出格式为：单词本身|${this.settings.prompt},回复时使用${this.settings.sourceLanguage}`
+              text: `将图片中的主体或者文字用英文单字进行描述。输出格式为：英文单字本身|${this.settings.prompt}`
             },
             {
               type: "image_url",

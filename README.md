@@ -1,15 +1,22 @@
-# WordCards 插件 for Obsidian
+# WordCards  for Obsidian
 
-**WordCards** 是一个为 Obsidian 设计的插件，旨在通过直接从剪贴板内容（文本或图片）自动生成详细的单词卡片，提升您的词汇学习、语言学习和笔记记录体验。利用 OpenAI 的 GPT-4 和 Imgur API，WordCards 能够高效地创建全面的单词条目，助您轻松管理和扩展词汇量。
+**WordCards** 是一个为 Obsidian 设计的插件，旨在通过直接生成详细的单词卡片，提升您的词汇学习、语言学习和笔记记录体验。利用 OpenAI 的 API 和 Imgur API，WordCards 能够高效地创建全面的单词条目，助您轻松管理和扩展词汇量。
+## 从markdown文件选中字符串生成单词卡
+![markdown文件中生成](.\others\演示markdown1.gif)
+## 从PDF++中生成单词卡(双向链接)
+![pdf++中生成](.\others\演示markdown2.gif)
+## 截屏生成卡片(添加图片链接在最后)
+![截图生成](.\others\演示markdown3.gif)
+
 
 ## 功能特性
 
 - **自动创建单词卡片**：从剪贴板的文本或图片内容生成详细的单词卡片。
-- **可定制的提示**：根据您的需求自定义 GPT-4 的提示内容。
+- **可定制的提示**：根据您的需求自定义卡片模板。
 - **灵活的打开模式**：选择在 Obsidian 工作区中的不同位置打开新创建的单词卡片（左侧、右侧、新窗口等）。
 - **图片支持**：上传图片至 Imgur 并将其包含在单词卡片中。
 - **无缝集成**：通过工具栏图标和命令轻松集成到现有的 Obsidian 工作流程中。
-- **设置面板**：全面的设置选项，用于配置语言、API 密钥、文件夹路径等。
+- **设置面板**：全面的设置选项，用于配置语言、API 密钥、文件夹路径等,卡片行为.
 
 ## 目录
 
@@ -59,18 +66,14 @@
 
 1. **打开 Obsidian 设置**：
    - 转到 `设置` > `插件选项` > `WordCards`。
-
 2. **配置语言**：
    - **源语言**：选择您输入单词的语言（例如：英语、日语）。
    - **目标语言**：选择单词卡片的翻译语言（例如：中文、法语）。
-
 3. **设置目标文件夹路径**：
    - 指定单词卡片将在您的 Vault 中保存的相对路径（例如：`Library/English/words`）。
-
 4. **输入 API 密钥**：
    - **OpenAI API 密钥**：粘贴您的 OpenAI API 密钥。
    - **Client ID**：粘贴您的 Imgur Client ID。
-
 5. **选择打开模式**：
    - 选择新创建的单词卡片在 Obsidian 工作区中的打开位置：
      - `left`：左侧面板。
@@ -79,13 +82,28 @@
      - `active`：活动面板。
      - `tab`：新标签页。
      - `none`：不自动打开。
-
 6. **切换设置选项**：
    - **设置为活动状态**：选择创建卡片后是否将其设为活动面板。
    - **允许重叠卡片**：决定是否允许新卡片覆盖已有卡片，或创建新条目。
-
 7. **自定义提示**：
-   - 修改 GPT-4 的提示内容，以自定义单词卡片中包含的信息。
+   - 修改 GPT 的提示内容，以自定义单词卡片中包含的信息。
+### 其它设置
+如果你想配合pdf++生成漂亮的链接并在pdf中显示高亮,请设置pdf++的以下部分使用
+
+![pdf设置](.\others\pdf++设置1.png)
+```
+
+{{text}}
+
+```
+![pdf设置](.\others\pdf++设置2.png)
+```
+
+>[!{{calloutType}}|{{color}}]
+
+>{{linkWithDisplay}}
+
+```
 
 ## 使用方法
 
@@ -93,12 +111,29 @@
 
 #### 通过工具栏图标
 
+1. 选中字符串或者进行屏幕截图
 1. 点击 Obsidian 工具栏中的 **WordCards 图标**，从剪贴板内容生成新的单词卡片。
 
 #### 通过命令面板
 
-1. 按 `Ctrl+P`（或 macOS 上的 `Cmd+P`）打开命令面板。
-2. 搜索 `Get clipboard content, query GPT, and create a new note` 并执行该命令。
+1. 选中字符或者屏幕截图
+
+2. 按 `Ctrl+P`（或 macOS 上的 `Cmd+P`）打开命令面板。
+
+3. 搜索 `Get clipboard content, query GPT, and create a new note` 并执行该命令。
+
+   
+#### 使用 Commander插件
+[[插件链接]](https://github.com/phibr0/obsidian-commander)
+这个插件可以让你在各种地方以各种方式使用命令,甚至简单的组合各种命令
+
+你甚至可以通过配置实现在pdf++中一键创建卡片(对,我就是这么懒)
+
+![pdf设置](.\others\commander设置1.png)
+
+add command添加pdf++的复制链接命令,然后加入一个短暂的delay然后加入我们的卡片命令
+
+这个命令创建后你就可以用commander插件将它放在任何地方
 
 ### 工作流程场景
 
@@ -134,21 +169,22 @@
   - 下拉菜单选择新单词卡片的打开位置（左侧、右侧、新窗口、活动、标签、不打开）。
 
 - **设置为活动状态**：
-  - 切换开关，决定创建卡片后是否将其设为活动面板。
+  - 切换开关，决定创建卡片后是否将其设为活动面板(也就是是否跳出来,如果选否的话被折叠也不会弹出)。
 
 - **允许重叠卡片**：
   - 切换开关，决定是否允许新卡片覆盖已有卡片或创建新条目。
 
 - **Prompt**：
-  - 文本区域，用于自定义 GPT-4 的提示内容，以调整单词卡片生成的信息。
+  - 文本区域，用于自定义 gpt 的提示内容，以调整单词卡片生成的信息。
 
 ## 贡献
 
-欢迎贡献！如果您想为 WordCards 做出贡献，请按照以下步骤操作：
+因为这个项目是作为我的JavaScript的入门练习开始的,很多地方都有不足,欢迎大家指正,非常希望一起交流做出我们都方便使用的插件
 
 1. **Fork 仓库**：
-   - 点击 [GitHub 仓库](https://github.com/your-repo/WordCards) 上的 `Fork` 按钮。
-
+   
+   - 点击 [GitHub 仓库](https://github.com/bwicarus/Obsidian-WordCards.git) 上的 `Fork` 按钮。
+   
 2. **克隆您的 Fork**：
    ```bash
    git clone https://github.com/your-username/WordCards.git
@@ -172,14 +208,16 @@
 6. **打开 Pull Request**：
    - 前往您的 Fork 仓库，点击 `Compare & pull request`。
 
-## 许可证
+如有任何问题、疑问或功能建议，请在 [GitHub 问题页](https://github.com/bwicarus/Obsidian-WordCards/issues) 上提交 Issue。
 
-[MIT 许可证](LICENSE)
+## 关于我
+我只是一个住在日本的苦逼留学生(虽说暂时在上班),日语刚刚学习到刚刚够用的水平,却发现英语还是不得不继续学习(明明就是因为讨厌英语才选择了日本ORZ),上班之余自学编程开发了各种小软件(大多是python)
 
----
+如果你想支持我,可以请我一杯咖啡
 
-**注意**：请确保妥善保管您的 API 密钥，避免公开泄露。该插件依赖于外部服务（OpenAI 和 Imgur），请遵守其使用政策和速率限制。
+[<img style="float:left" src="https://user-images.githubusercontent.com/14358394/115450238-f39e8100-a21b-11eb-89d0-fa4b82cdbce8.png" width="200">](https://ko-fi.com/linhao)
 
-如有任何问题、疑问或功能建议，请在 [GitHub 问题页](https://github.com/your-repo/WordCards/issues) 上提交 [Issue](https://github.com/your-repo/WordCards/issues)。
+
+
 
 祝您使用愉快！
