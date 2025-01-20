@@ -5,11 +5,13 @@
 **WordCards** 是一个为 Obsidian 设计的插件，旨在通过直接生成详细的单词卡片，提升您的词汇学习、语言学习和笔记记录体验。利用 OpenAI 的 API 和 Imgur API，WordCards 能够高效地创建全面的单词条目，助您轻松管理和扩展词汇量。
 
 ## 多语言支持：从您想学习的任何语言创建个性化的语言学习卡片。
-![markdown文件中生成](./演示markdown3.gif)
+<img src="./演示markdown3.gif" alt="markdown文件中生成" width="60%">
+
 ## 从PDF++中生成单词卡(双向链接)
-![pdf++中生成](./演示markdown2.gif)
+<img src="./演示markdown2.gif" alt="pdf++中生成" width="60%">
+
 ## 截屏生成卡片(添加图片链接在最后)
-![pdf++中生成](./演示markdown4.gif)
+<img src="./演示markdown4.gif" alt="截屏生成卡片" width="60%">
 
 
 ## 功能特性
@@ -93,13 +95,14 @@
 ### 其它设置
 如果你想配合pdf++生成漂亮的链接并在pdf中显示高亮,请设置pdf++的以下部分使用
 
-![pdf设置](./pdf++设置1.png)
+<img src="./pdf++设置2.png" alt="command设置" width="60%">
 ```
 
 {{text}}
 
 ```
-![pdf设置](./pdf++设置2.png)
+<img src="./pdf++设置2.png" alt="command设置" width="60%">
+
 ```
 
 >[!{{calloutType}}|{{color}}]
@@ -132,7 +135,7 @@
 
 你甚至可以通过配置实现在pdf++中一键创建卡片(对,我就是这么懒)
 
-![pdf设置](./others/commander设置1.png)
+<img src="./commander设置1.png" alt="command设置" width="60%">
 
 add command添加pdf++的复制链接命令,然后加入一个短暂的delay然后加入我们的卡片命令
 
