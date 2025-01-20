@@ -1,36 +1,37 @@
-# WordCards for Obsidian
-english  [中文](./others/README-ZH.md)  [日本語](./others/README-JP.md)
+# Obsidian WordCards 📒
 
-**WordCards** is a plugin designed for Obsidian, aiming to enhance your vocabulary learning, language studies, and note-taking experience by directly generating detailed flashcards. Leveraging OpenAI's API and Imgur's API, WordCards efficiently creates comprehensive word entries, helping you easily manage and expand your vocabulary.
+English [中文](./others/README-ZH.md)  [日本語](./others/README-JP.md)
 
-## Multilingual Support: Create personalized language flashcards from any language you want to learn.
-![Generating in Markdown File](./others/演示markdown3.gif)
+**WordCards** is a plugin designed for Obsidian to enhance your vocabulary learning, language acquisition, and note-taking experience by directly generating detailed flashcards. Utilizing OpenAI's API and Imgur's API, WordCards efficiently creates comprehensive word entries, helping you easily manage and expand your vocabulary.
 
-## Generate Flashcards from PDF++ (Bidirectional Links)
-![Generating in PDF++](./others/演示markdown2.gif)
+## 🌐 Multi-Language Support: Create personalized language learning flashcards in any language you wish to learn.
+<img src="./others/演示markdown3.gif" alt="Generating in Markdown file" width="60%">
 
-## Generate Cards from Screenshots (Add Image Links at the End)
-![Generating from Screenshot](./others/演示markdown4.gif)
+## 📄 Generate Flashcards from PDF++ (Bi-directional Linking)
+<img src="./others/演示markdown2.gif" alt="Generating in PDF++" width="60%">
 
-## Features
+## 📸 Generate Flashcards from Screenshots (Add Image Links at the End)
+<img src="./others/演示markdown4.gif" alt="Generating from screenshot" width="60%">
 
-- **Automatic Flashcard Creation**: Generate detailed flashcards from text or image content in the clipboard.
-- **Customizable Prompts**: Customize the flashcard templates according to your needs.
+## 🚀 Features
+
+- **Automatic Flashcard Creation**: Generate detailed flashcards from text or image content in your clipboard.
+- **Customizable Prompts**: Tailor the flashcard templates to your specific needs.
 - **Flexible Opening Modes**: Choose different locations within the Obsidian workspace to open newly created flashcards (left pane, right pane, new window, etc.).
-- **Image Support**: Upload images to Imgur and include them in flashcards.
+- **Image Support**: Upload images to Imgur and include them in your flashcards.
 - **Seamless Integration**: Easily integrate into your existing Obsidian workflow via toolbar icons and commands.
-- **Settings Panel**: Comprehensive settings options for configuring language, API keys, folder paths, and card behaviors.
+- **Settings Panel**: Comprehensive configuration options for languages, API keys, folder paths, and flashcard behaviors.
 
-## Table of Contents
+## 📚 Table of Contents
 
-- [Installation](#installation)
-- [Configuration](#configuration)
-- [Usage](#usage)
-- [Detailed Settings](#detailed-settings)
-- [Contributing](#contributing)
-- [License](#license)
+- ⛓️[Installation](#⛓️installation)
+- [🔧 Configuration](#🔧-configuration)
+- [🕹️ Usage](#🕹️-usage)
+- [⚙️ Detailed Settings](#⚙️-detailed-settings)
+- [🙌 Contributing](#🙌-contributing)
+- [🙃 About Me](#🙃-about-me)
 
-## Installation
+## ⛓️ Installation
 
 ### Install via Obsidian Community Plugins
 
@@ -45,12 +46,12 @@ english  [中文](./others/README-ZH.md)  [日本語](./others/README-JP.md)
 1. **Download the Plugin**:
    - Clone or download the plugin from the [GitHub repository](https://github.com/bwicarus/Obsidian-WordCards.git).
 2. **Copy the Plugin Folder**:
-   - Copy the plugin folder (`WordCards`) to your Obsidian Vault's plugin directory: `.obsidian/plugins/`.
-3. **Restart Obsidian or Reload Plugins**.
+   - Copy the plugin folder (`WordCards`) to your Obsidian Vault’s plugins directory: `.obsidian/plugins/`.
+3. **Restart Obsidian or Reload the Plugins**.
 4. **Enable the Plugin**:
    - Go to `Settings` > `Community Plugins`, find `WordCards`, and enable it.
 
-## Configuration
+## 🔧 Configuration
 
 Before using WordCards, you need to set up your API keys and other configuration options.
 
@@ -62,50 +63,53 @@ Before using WordCards, you need to set up your API keys and other configuration
    - Keep this key secure and do not share it publicly.
 
 2. **Imgur Client ID**:
-   - Register an application at [Imgur](https://api.imgur.com/oauth2/addclient).
+   - Register an application on [Imgur](https://api.imgur.com/oauth2/addclient).
    - Choose the appropriate application type and obtain your `Client ID`.
 
 ### Setup Steps
 
 1. **Open Obsidian Settings**:
    - Go to `Settings` > `Plugin Options` > `WordCards`.
-2. **Configure Language**:
-   - **Source Language**: Select the language of the words you input (e.g., English, Japanese).
-   - **Target Language**: Select the translation language for the flashcards (e.g., Chinese, French).
+2. **Configure Languages**:
+   - **Source Language**: Select the language of the words you are inputting (e.g., English, Japanese).
+   - **Target Language**: Select the language for the flashcard translations (e.g., Chinese, French).
 3. **Set Target Folder Path**:
-   - Specify the relative path in your Vault where the flashcards will be saved (e.g., `Library/English/words`).
+   - Specify the relative path within your Vault where flashcards will be saved (e.g., `Library/English/words`).
 4. **Enter API Keys**:
    - **OpenAI API Key**: Paste your OpenAI API key.
    - **Client ID**: Paste your Imgur Client ID.
 5. **Choose Opening Mode**:
-   - Select where the newly created flashcard will open within the Obsidian workspace:
+   - Select where the new flashcard will open within the Obsidian workspace:
      - `left`: Left pane.
      - `right`: Right pane.
      - `window`: New window.
      - `active`: Active pane.
      - `tab`: New tab.
      - `none`: Do not open automatically.
-6. **Toggle Setting Options**:
-   - **Set as Active**: Choose whether to set the created flashcard as the active pane after creation.
-   - **Allow Overlapping Cards**: Decide whether new cards can overwrite existing ones or create new entries.
+6. **Toggle Settings Options**:
+   - **Set as Active**: Choose whether the flashcard becomes the active pane after creation.
+   - **Allow Overlapping Flashcards**: Decide whether new flashcards overwrite existing ones or create new entries.
 7. **Customize Prompts**:
-   - Modify the GPT prompts to customize the information included in the flashcards.
+   - Modify GPT’s prompt content to customize the information included in the flashcards.
 
 ### Additional Settings
-If you want to generate beautiful links in PDF++ and display highlights in PDFs, configure the following sections in PDF++:
+If you want to integrate with PDF++ to generate elegant links and display highlights in PDFs, configure the following sections in PDF++:
 
-![PDF Settings](./others/pdf++设置1.png)
+<img src="./others/pdf++设置2.png" alt="command settings" width="60%">
+
 ```
 {{text}}
 ```
-![PDF Settings](./others/pdf++设置2.png)
+
+<img src="./others/pdf++设置2.png" alt="command settings" width="60%">
+
 ```
 >[!{{calloutType}}|{{color}}]
->
+
 >{{linkWithDisplay}}
 ```
 
-## Usage
+## 🕹️ Usage
 
 ### Creating Flashcards
 
@@ -122,31 +126,30 @@ If you want to generate beautiful links in PDF++ and display highlights in PDFs,
 
 #### Using the Commander Plugin
 [[Plugin Link]](https://github.com/phibr0/obsidian-commander)
+This plugin allows you to use commands in various ways and even combine multiple commands.
 
-This plugin allows you to use commands in various ways and even combine multiple commands easily.
+You can even configure it to create flashcards with a single click in PDF++ (yes, I’m that lazy).
 
-You can even configure it to create flashcards with a single click in PDF++ (yes, I'm that lazy).
+<img src="./others/commander设置1.png" alt="command settings" width="60%">
 
-![Commander Settings](./others/commander设置1.png)
-
-Add a command to copy links from PDF++, then add a short delay followed by our flashcard command.
+Add a command to include PDF++’s copy link command, then add a short delay followed by our flashcard command.
 
 Once this command is created, you can place it anywhere using the Commander plugin.
 
 ### Workflow Scenarios
 
 - **Clipboard Contains Text**:
-  - If the clipboard contains word text, activating WordCards will create a flashcard with detailed information such as translations, definitions, and example sentences based on the configured prompts.
+  - If the clipboard contains word text, activating WordCards will create a flashcard with translations, definitions, example sentences, and other detailed information based on the configured prompts.
 
 - **Clipboard Contains Image**:
-  - If the clipboard contains an image, WordCards will upload the image to Imgur, use GPT-4 to analyze the image content, and create a flashcard containing the extracted information and the image.
+  - If the clipboard contains an image, WordCards will upload the image to Imgur, use GPT-4 to analyze the image content, and create a flashcard that includes the extracted information and the image.
 
 - **Processing Active File**:
-  - Depending on the type of the current active file (e.g., Markdown or PDF), WordCards will handle the content accordingly, creating new flashcards or appending to existing ones.
+  - Depending on the type of the current active file (e.g., Markdown or PDF), WordCards will process the content accordingly, creating new flashcards or appending to existing ones.
 
-## Detailed Settings
+## ⚙️ Detailed Settings
 
-You can access the settings panel by going to `Settings` > `Plugin Options` > `WordCards`. Below is a detailed explanation of the available settings:
+You can access the settings panel by navigating to `Settings` > `Plugin Options` > `WordCards`. Below are detailed descriptions of the available settings:
 
 - **Source Language**:
   - Dropdown menu to select the language of the input words.
@@ -154,8 +157,8 @@ You can access the settings panel by going to `Settings` > `Plugin Options` > `W
 - **Target Language**:
   - Dropdown menu to select the translation language for the flashcards.
 
-- **Target Folder Path for Word Files**:
-  - Text input to specify where the flashcards will be saved in the Vault (e.g., `Library/English/words`).
+- **Flashcard Target Folder Path**:
+  - Text input to specify where flashcards will be saved within the Vault (e.g., `Library/English/words`).
 
 - **OpenAI API Key**:
   - Text input to enter your OpenAI API key.
@@ -164,28 +167,35 @@ You can access the settings panel by going to `Settings` > `Plugin Options` > `W
   - Text input to enter your Imgur Client ID.
 
 - **Opening Mode**:
-  - Dropdown menu to select where the new flashcard will open (left pane, right pane, new window, active pane, tab, do not open).
+  - Dropdown menu to choose where new flashcards will open (left pane, right pane, new window, active pane, tab, or none).
 
 - **Set as Active**:
-  - Toggle switch to decide whether to set the created flashcard as the active pane after creation (i.e., whether it pops up; if set to no, it won't pop up even if collapsed).
+  - Toggle switch to decide whether the flashcard becomes the active pane after creation (i.e., whether it pops up; if set to no, it will remain collapsed without popping up).
 
-- **Allow Overlapping Cards**:
-  - Toggle switch to decide whether to allow new flashcards to overwrite existing ones or create new entries.
+- **Allow Overlapping Flashcards**:
+  - Toggle switch to decide whether new flashcards overwrite existing ones or create new entries.
 
 - **Prompt**:
-  - Text area to customize the GPT prompts to adjust the information generated in the flashcards.
+  - Text area to customize GPT’s prompt content, allowing you to adjust the information included in the flashcard generation.
 
-## Contributing
+## 🙌 Contributing
 
-This project started as an entry-level practice for my JavaScript skills, so there are many areas that need improvement. Feedback is welcome, and I hope to collaborate to create a plugin that is convenient for all of us to use. If you have any questions, issues, or feature suggestions, please submit an Issue on the [GitHub Issues Page](https://github.com/bwicarus/Obsidian-WordCards/issues).
+This project started as an introductory exercise in JavaScript, so there are many areas that need improvement. Contributions and feedback are welcome! I’m eager to collaborate and develop a plugin that is convenient for everyone to use. If you have any questions, issues, or feature suggestions, please submit an Issue on the [GitHub Issues Page](https://github.com/bwicarus/Obsidian-WordCards/issues).
 
-## About Me
-I’m just a struggling international student living in Japan (currently working part-time). My Japanese is at a basic level, and I realized I still need to continue learning English (I chose Japan because I hate English ORZ). In my spare time, I self-study programming and develop various small software (mostly in Python).
+## 🙃 About Me
 
-If you’d like to support me, you can buy me a coffee.
+I’m just an international student living in Japan (currently working), with my Japanese skills at a basic level. However, I realized I still need to continue learning English (probably because I dislike English, I chose Japan ORZ). In my spare time, I teach myself programming and develop various small software projects (mostly in Python).
+
+If you’d like to get in touch, feel free to email me. If you prefer to communicate via WeChat, please specify the purpose (e.g., issues related to the Obsidian plugin).
+
+Email: bwicarus@gmail.com
+
+WeChat ID: Mf12189115
+
+Of course, if you’d like to support me, you can buy me a coffee:
 
 [<img style="float:left" src="https://user-images.githubusercontent.com/14358394/115450238-f39e8100-a21b-11eb-89d0-fa4b82cdbce8.png" width="200">](https://ko-fi.com/linhao)
 
----
 
-**Enjoy using WordCards!**
+
+Wishing you a pleasant experience!
