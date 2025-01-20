@@ -1,5 +1,6 @@
 # WordCards for Obsidian
-english  [中文](./others/README.md)  [日本語](./others/README-JP.md)
+english  [中文](./others/README-ZH.md)  [日本語](./others/README-JP.md)
+
 **WordCards** is a plugin designed for Obsidian, aiming to enhance your vocabulary learning, language studies, and note-taking experience by directly generating detailed flashcards. Leveraging OpenAI's API and Imgur's API, WordCards efficiently creates comprehensive word entries, helping you easily manage and expand your vocabulary.
 
 ## Multilingual Support: Create personalized language flashcards from any language you want to learn.
