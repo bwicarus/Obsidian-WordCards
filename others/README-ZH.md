@@ -1,6 +1,6 @@
 # WordCards  for Obsidian
 
-[english](./README.md)  中文  [日本語](./README-JP.md)
+[english](../README.md)  中文  [日本語](./README-JP.md)
 
 **WordCards** 是一个为 Obsidian 设计的插件，旨在通过直接生成详细的单词卡片，提升您的词汇学习、语言学习和笔记记录体验。利用 OpenAI 的 API 和 Imgur API，WordCards 能够高效地创建全面的单词条目，助您轻松管理和扩展词汇量。
 
@@ -96,6 +96,7 @@
 如果你想配合pdf++生成漂亮的链接并在pdf中显示高亮,请设置pdf++的以下部分使用
 
 <img src="./pdf++设置2.png" alt="command设置" width="60%">
+
 ```
 
 {{text}}
@@ -104,7 +105,6 @@
 <img src="./pdf++设置2.png" alt="command设置" width="60%">
 
 ```
-
 >[!{{calloutType}}|{{color}}]
 
 >{{linkWithDisplay}}
