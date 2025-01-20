@@ -1,9 +1,9 @@
 {
-	"id": "obsidian-wordCard-test",
-	"name": "wordCard-test",
-	"version": "1.0.0",
+	"id": "wordcard",
+	"name": "wordcard",
+	"version": "1.0.1",
 	"minAppVersion": "0.15.0",
-	"description": "Demonstrates some of the capabilities of the Obsidian API.",
+	"description": "creating detailed word cards with OpenAI and Imgur APIs.",
 	"author": "setsu",
 	"authorUrl": "https://github.com/bwicarus",
 	"fundingUrl": "https://ko-fi.com/linhao",
