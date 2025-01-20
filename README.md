@@ -1,194 +1,190 @@
-# WordCards  for Obsidian
+# WordCards for Obsidian
 
-**WordCards** 是一个为 Obsidian 设计的插件，旨在通过直接生成详细的单词卡片，提升您的词汇学习、语言学习和笔记记录体验。利用 OpenAI 的 API 和 Imgur API，WordCards 能够高效地创建全面的单词条目，助您轻松管理和扩展词汇量。
-## 从markdown文件选中字符串生成单词卡
-![markdown文件中生成](./others/演示markdown1.gif)
-## 从PDF++中生成单词卡(双向链接)
-![pdf++中生成](./others/演示markdown2.gif)
-## 截屏生成卡片(添加图片链接在最后)
-![截图生成](./others/演示markdown3.gif)
+**WordCards** is a plugin designed for Obsidian, aiming to enhance your vocabulary learning, language studies, and note-taking experience by directly generating detailed flashcards. Leveraging OpenAI's API and Imgur's API, WordCards efficiently creates comprehensive word entries, helping you easily manage and expand your vocabulary.
 
+## Multilingual Support: Create personalized language flashcards from any language you want to learn.
+![Generating in Markdown File](./others/演示markdown3.gif)
 
-## 功能特性
+## Generate Flashcards from PDF++ (Bidirectional Links)
+![Generating in PDF++](./others/演示markdown2.gif)
 
-- **自动创建单词卡片**：从剪贴板的文本或图片内容生成详细的单词卡片。
-- **可定制的提示**：根据您的需求自定义卡片模板。
-- **灵活的打开模式**：选择在 Obsidian 工作区中的不同位置打开新创建的单词卡片（左侧、右侧、新窗口等）。
-- **图片支持**：上传图片至 Imgur 并将其包含在单词卡片中。
-- **无缝集成**：通过工具栏图标和命令轻松集成到现有的 Obsidian 工作流程中。
-- **设置面板**：全面的设置选项，用于配置语言、API 密钥、文件夹路径等,卡片行为.
+## Generate Cards from Screenshots (Add Image Links at the End)
+![Generating from Screenshot](./others/演示markdown4.gif)
 
-## 目录
+## Features
 
-- [安装](#安装)
-- [配置](#配置)
-- [使用方法](#使用方法)
-- [设置详情](#设置详情)
-- [贡献](#贡献)
-- [许可证](#许可证)
+- **Automatic Flashcard Creation**: Generate detailed flashcards from text or image content in the clipboard.
+- **Customizable Prompts**: Customize the flashcard templates according to your needs.
+- **Flexible Opening Modes**: Choose different locations within the Obsidian workspace to open newly created flashcards (left pane, right pane, new window, etc.).
+- **Image Support**: Upload images to Imgur and include them in flashcards.
+- **Seamless Integration**: Easily integrate into your existing Obsidian workflow via toolbar icons and commands.
+- **Settings Panel**: Comprehensive settings options for configuring language, API keys, folder paths, and card behaviors.
 
-## 安装
+## Table of Contents
 
-### 通过 Obsidian 社区插件安装
+- [Installation](#installation)
+- [Configuration](#configuration)
+- [Usage](#usage)
+- [Detailed Settings](#detailed-settings)
+- [Contributing](#contributing)
+- [License](#license)
 
-1. **打开 Obsidian**。
-2. 转到 `设置` > `社区插件`。
-3. 确保 `安全模式` **已关闭**。
-4. 点击 `浏览`，搜索 `WordCards`。
-5. 点击 `安装`，然后点击 `启用`。
+## Installation
 
-### 手动安装
+### Install via Obsidian Community Plugins
 
-1. **下载插件**：
-   - 从 [GitHub 仓库](https://github.com/bwicarus/Obsidian-WordCards.git) 克隆或下载插件。
-2. **复制插件文件夹**：
-   - 将插件文件夹 (`WordCards`) 复制到您的 Obsidian Vault 的插件目录中：`.obsidian/plugins/`。
-3. **重启 Obsidian 或重新加载插件**。
-4. **启用插件**：
-   - 转到 `设置` > `社区插件`，找到 `WordCards` 并启用它。
+1. **Open Obsidian**.
+2. Go to `Settings` > `Community Plugins`.
+3. Ensure that `Safe Mode` is **turned off**.
+4. Click `Browse`, search for `WordCards`.
+5. Click `Install`, then click `Enable`.
 
-## 配置
+### Manual Installation
 
-在使用 WordCards 之前，您需要设置 API 密钥和其他配置选项。
+1. **Download the Plugin**:
+   - Clone or download the plugin from the [GitHub repository](https://github.com/bwicarus/Obsidian-WordCards.git).
+2. **Copy the Plugin Folder**:
+   - Copy the plugin folder (`WordCards`) to your Obsidian Vault's plugin directory: `.obsidian/plugins/`.
+3. **Restart Obsidian or Reload Plugins**.
+4. **Enable the Plugin**:
+   - Go to `Settings` > `Community Plugins`, find `WordCards`, and enable it.
 
-### 必需的 API 密钥
+## Configuration
 
-1. **OpenAI API 密钥**：
-   - 前往 [OpenAI](https://platform.openai.com/) 注册或登录。
-   - 导航到 API 部分并生成一个新的 API 密钥。
-   - 请妥善保管此密钥，避免公开分享。
+Before using WordCards, you need to set up your API keys and other configuration options.
 
-2. **Imgur Client ID**：
-   - 在 [Imgur](https://api.imgur.com/oauth2/addclient) 注册一个应用。
-   - 选择合适的应用类型并获取您的 `Client ID`。
+### Required API Keys
 
-### 设置步骤
+1. **OpenAI API Key**:
+   - Visit [OpenAI](https://platform.openai.com/) to register or log in.
+   - Navigate to the API section and generate a new API key.
+   - Keep this key secure and do not share it publicly.
 
-1. **打开 Obsidian 设置**：
-   - 转到 `设置` > `插件选项` > `WordCards`。
-2. **配置语言**：
-   - **源语言**：选择您输入单词的语言（例如：英语、日语）。
-   - **目标语言**：选择单词卡片的翻译语言（例如：中文、法语）。
-3. **设置目标文件夹路径**：
-   - 指定单词卡片将在您的 Vault 中保存的相对路径（例如：`Library/English/words`）。
-4. **输入 API 密钥**：
-   - **OpenAI API 密钥**：粘贴您的 OpenAI API 密钥。
-   - **Client ID**：粘贴您的 Imgur Client ID。
-5. **选择打开模式**：
-   - 选择新创建的单词卡片在 Obsidian 工作区中的打开位置：
-     - `left`：左侧面板。
-     - `right`：右侧面板。
-     - `window`：新窗口。
-     - `active`：活动面板。
-     - `tab`：新标签页。
-     - `none`：不自动打开。
-6. **切换设置选项**：
-   - **设置为活动状态**：选择创建卡片后是否将其设为活动面板。
-   - **允许重叠卡片**：决定是否允许新卡片覆盖已有卡片，或创建新条目。
-7. **自定义提示**：
-   - 修改 GPT 的提示内容，以自定义单词卡片中包含的信息。
-### 其它设置
-如果你想配合pdf++生成漂亮的链接并在pdf中显示高亮,请设置pdf++的以下部分使用
+2. **Imgur Client ID**:
+   - Register an application at [Imgur](https://api.imgur.com/oauth2/addclient).
+   - Choose the appropriate application type and obtain your `Client ID`.
 
-![pdf设置](./others/pdf++设置1.png)
+### Setup Steps
+
+1. **Open Obsidian Settings**:
+   - Go to `Settings` > `Plugin Options` > `WordCards`.
+2. **Configure Language**:
+   - **Source Language**: Select the language of the words you input (e.g., English, Japanese).
+   - **Target Language**: Select the translation language for the flashcards (e.g., Chinese, French).
+3. **Set Target Folder Path**:
+   - Specify the relative path in your Vault where the flashcards will be saved (e.g., `Library/English/words`).
+4. **Enter API Keys**:
+   - **OpenAI API Key**: Paste your OpenAI API key.
+   - **Client ID**: Paste your Imgur Client ID.
+5. **Choose Opening Mode**:
+   - Select where the newly created flashcard will open within the Obsidian workspace:
+     - `left`: Left pane.
+     - `right`: Right pane.
+     - `window`: New window.
+     - `active`: Active pane.
+     - `tab`: New tab.
+     - `none`: Do not open automatically.
+6. **Toggle Setting Options**:
+   - **Set as Active**: Choose whether to set the created flashcard as the active pane after creation.
+   - **Allow Overlapping Cards**: Decide whether new cards can overwrite existing ones or create new entries.
+7. **Customize Prompts**:
+   - Modify the GPT prompts to customize the information included in the flashcards.
+
+### Additional Settings
+If you want to generate beautiful links in PDF++ and display highlights in PDFs, configure the following sections in PDF++:
+
+![PDF Settings](./others/pdf++设置1.png)
 ```
-
 {{text}}
-
 ```
-![pdf设置](./others/pdf++设置2.png)
+![PDF Settings](./others/pdf++设置2.png)
 ```
-
 >[!{{calloutType}}|{{color}}]
-
+>
 >{{linkWithDisplay}}
-
 ```
 
-## 使用方法
+## Usage
 
-### 创建单词卡片
+### Creating Flashcards
 
-#### 通过工具栏图标
+#### Via Toolbar Icon
 
-1. 选中字符串或者进行屏幕截图
-1. 点击 Obsidian 工具栏中的 **WordCards 图标**，从剪贴板内容生成新的单词卡片。
+1. Select a string of text or take a screenshot.
+2. Click the **WordCards icon** in the Obsidian toolbar to generate a new flashcard from the clipboard content.
 
-#### 通过命令面板
+#### Via Command Palette
 
-1. 选中字符或者屏幕截图
+1. Select text or take a screenshot.
+2. Press `Ctrl+P` (or `Cmd+P` on macOS) to open the command palette.
+3. Search for `Get clipboard content, query GPT, and create a new note` and execute the command.
 
-2. 按 `Ctrl+P`（或 macOS 上的 `Cmd+P`）打开命令面板。
+#### Using the Commander Plugin
+[[Plugin Link]](https://github.com/phibr0/obsidian-commander)
 
-3. 搜索 `Get clipboard content, query GPT, and create a new note` 并执行该命令。
+This plugin allows you to use commands in various ways and even combine multiple commands easily.
 
-   
-#### 使用 Commander插件
-[[插件链接]](https://github.com/phibr0/obsidian-commander)
-这个插件可以让你在各种地方以各种方式使用命令,甚至简单的组合各种命令
+You can even configure it to create flashcards with a single click in PDF++ (yes, I'm that lazy).
 
-你甚至可以通过配置实现在pdf++中一键创建卡片(对,我就是这么懒)
+![Commander Settings](./others/commander设置1.png)
 
-![pdf设置](./others/commander设置1.png)
+Add a command to copy links from PDF++, then add a short delay followed by our flashcard command.
 
-add command添加pdf++的复制链接命令,然后加入一个短暂的delay然后加入我们的卡片命令
+Once this command is created, you can place it anywhere using the Commander plugin.
 
-这个命令创建后你就可以用commander插件将它放在任何地方
+### Workflow Scenarios
 
-### 工作流程场景
+- **Clipboard Contains Text**:
+  - If the clipboard contains word text, activating WordCards will create a flashcard with detailed information such as translations, definitions, and example sentences based on the configured prompts.
 
-- **剪贴板包含文本**：
-  - 如果剪贴板中有单词文本，激活 WordCards 将根据配置的提示创建包含翻译、定义、例句等详细信息的单词卡片。
+- **Clipboard Contains Image**:
+  - If the clipboard contains an image, WordCards will upload the image to Imgur, use GPT-4 to analyze the image content, and create a flashcard containing the extracted information and the image.
 
-- **剪贴板包含图片**：
-  - 如果剪贴板中有图片，WordCards 将上传图片至 Imgur，使用 GPT-4 分析图片内容，并创建包含提取信息和图片的单词卡片。
+- **Processing Active File**:
+  - Depending on the type of the current active file (e.g., Markdown or PDF), WordCards will handle the content accordingly, creating new flashcards or appending to existing ones.
 
-- **处理活动文件**：
-  - 根据当前活动文件的类型（例如 Markdown 或 PDF），WordCards 将相应地处理内容，创建新的单词卡片或追加到现有卡片中。
+## Detailed Settings
 
-## 设置详情
+You can access the settings panel by going to `Settings` > `Plugin Options` > `WordCards`. Below is a detailed explanation of the available settings:
 
-您可以通过转到 `设置` > `插件选项` > `WordCards` 访问设置面板。以下是可用设置的详细说明：
+- **Source Language**:
+  - Dropdown menu to select the language of the input words.
 
-- **源语言**：
-  - 下拉菜单选择输入单词的语言。
+- **Target Language**:
+  - Dropdown menu to select the translation language for the flashcards.
 
-- **目标语言**：
-  - 下拉菜单选择单词卡片的翻译语言。
+- **Target Folder Path for Word Files**:
+  - Text input to specify where the flashcards will be saved in the Vault (e.g., `Library/English/words`).
 
-- **单词文件目标文件夹路径**：
-  - 文本输入框，指定单词卡片在 Vault 中保存的位置（例如：`Library/English/words`）。
+- **OpenAI API Key**:
+  - Text input to enter your OpenAI API key.
 
-- **OpenAI API 密钥**：
-  - 文本输入框，输入您的 OpenAI API 密钥。
+- **Client ID**:
+  - Text input to enter your Imgur Client ID.
 
-- **Client ID**：
-  - 文本输入框，输入您的 Imgur Client ID。
+- **Opening Mode**:
+  - Dropdown menu to select where the new flashcard will open (left pane, right pane, new window, active pane, tab, do not open).
 
-- **打开模式**：
-  - 下拉菜单选择新单词卡片的打开位置（左侧、右侧、新窗口、活动、标签、不打开）。
+- **Set as Active**:
+  - Toggle switch to decide whether to set the created flashcard as the active pane after creation (i.e., whether it pops up; if set to no, it won't pop up even if collapsed).
 
-- **设置为活动状态**：
-  - 切换开关，决定创建卡片后是否将其设为活动面板(也就是是否跳出来,如果选否的话被折叠也不会弹出)。
+- **Allow Overlapping Cards**:
+  - Toggle switch to decide whether to allow new flashcards to overwrite existing ones or create new entries.
 
-- **允许重叠卡片**：
-  - 切换开关，决定是否允许新卡片覆盖已有卡片或创建新条目。
+- **Prompt**:
+  - Text area to customize the GPT prompts to adjust the information generated in the flashcards.
 
-- **Prompt**：
-  - 文本区域，用于自定义 gpt 的提示内容，以调整单词卡片生成的信息。
+## Contributing
 
-## 贡献
+This project started as an entry-level practice for my JavaScript skills, so there are many areas that need improvement. Feedback is welcome, and I hope to collaborate to create a plugin that is convenient for all of us to use. If you have any questions, issues, or feature suggestions, please submit an Issue on the [GitHub Issues Page](https://github.com/bwicarus/Obsidian-WordCards/issues).
 
-因为这个项目是作为我的JavaScript的入门练习开始的,很多地方都有不足,欢迎大家指正,非常希望一起交流做出我们都方便使用的插件,如有任何问题、疑问或功能建议，请在 [GitHub 问题页](https://github.com/bwicarus/Obsidian-WordCards/issues) 上提交 Issue。
+## About Me
+I’m just a struggling international student living in Japan (currently working part-time). My Japanese is at a basic level, and I realized I still need to continue learning English (I chose Japan because I hate English ORZ). In my spare time, I self-study programming and develop various small software (mostly in Python).
 
-## 关于我
-我只是一个住在日本的苦逼留学生(虽说暂时在上班),日语刚刚学习到刚刚够用的水平,却发现英语还是不得不继续学习(明明就是因为讨厌英语才选择了日本ORZ),上班之余自学编程开发了各种小软件(大多是python)
-
-如果你想支持我,可以请我一杯咖啡
+If you’d like to support me, you can buy me a coffee.
 
 [<img style="float:left" src="https://user-images.githubusercontent.com/14358394/115450238-f39e8100-a21b-11eb-89d0-fa4b82cdbce8.png" width="200">](https://ko-fi.com/linhao)
 
+---
 
-
-
-祝您使用愉快！
+**Enjoy using WordCards!**
