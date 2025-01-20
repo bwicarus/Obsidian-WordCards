@@ -187,11 +187,18 @@ add command添加pdf++的复制链接命令,然后加入一个短暂的delay然�
 ## 关于我
 我只是一个住在日本的苦逼留学生(虽说暂时在上班),日语刚刚学习到刚刚够用的水平,却发现英语还是不得不继续学习(明明就是因为讨厌英语才选择了日本ORZ),上班之余自学编程开发了各种小软件(大多是python)
 
-如果你想支持我,可以请我一杯咖啡
+如果有想要交流的事情,欢迎发邮件给我,如果想通过微信交流请说明来意(obsidian插件的问题之类的)
+
+邮箱:bwicarus@gmail.com
+
+微信号:Mf12189115
+
+当然如果你想支持我,可以请我一杯咖啡
 
 [<img style="float:left" src="https://user-images.githubusercontent.com/14358394/115450238-f39e8100-a21b-11eb-89d0-fa4b82cdbce8.png" width="200">](https://ko-fi.com/linhao)
 
 
 
+[<img style="float:left" src="./wechat.jpeg" width="200">](./wechat.jpeg)
 
 祝您使用愉快！
