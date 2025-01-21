@@ -1,5 +1,5 @@
 import { clipboard } from 'electron';
-import { Plugin, WorkspaceLeaf, FileSystemAdapter, MarkdownView, TFile, Notice, App, Setting, PluginSettingTab, addIcon } from 'obsidian';
+import { requestUrl,Plugin, WorkspaceLeaf, FileSystemAdapter, MarkdownView, TFile, Notice, App, Setting, PluginSettingTab, addIcon } from 'obsidian';
 import * as path from 'path';
 
 // We no longer use Node's native fs for writing, so removed import fs from 'fs';
@@ -59,8 +59,11 @@ export default class WordCards extends Plugin {
   }
 
   async onload() {
-    await this.loadSettings();
 
+    document.addEventListener('contextmenu', (event) => {
+      event.preventDefault();
+  });
+    await this.loadSettings();
     addIcon('gpt', `
       <path d="M31.7,36.9h12.1l4.6,8c0.3,0.5,0.9,0.9,1.5,0.9c0.6,0,1.2-0.3,1.5-0.9l4.6-8h12.1c7.9,0,14.3-6.4,14.3-14.3c0-7.9-6.4-14.3-14.3-14.3H31.7c-7.9,0-14.3,6.4-14.3,14.3C17.4,30.5,23.8,36.9,31.7,36.9z M31.7,11.8h36.5c6,0,10.8,4.8,10.8,10.8s-4.8,10.8-10.8,10.8H55.1c-0.6,0-1.2,0.3-1.5,0.9L50,40.5l-3.6-6.2c-0.3-0.5-0.9-0.9-1.5-0.9H31.7c-6,0-10.8-4.8-10.8-10.8S25.8,11.8,31.7,11.8z"/>
      <circle cx="36.6" cy="22.9" r="3.6"/>
@@ -90,10 +93,6 @@ export default class WordCards extends Plugin {
   }
 
   private async WordCardMain() {
-    // Get Obsidian's Vault root directory (useful if you need the physical disk path),
-    // but use relative paths for file operations
-    const fsAdapter = this.app.vault.adapter as FileSystemAdapter;
-    const vaultRoot = fsAdapter.getBasePath();
 
     // Use the user-defined targetFolderPath as a "relative path"
     this.targetFolderPath = this.settings.targetFolderPath;
@@ -108,7 +107,6 @@ export default class WordCards extends Plugin {
         // If there's no text, attempt to handle it as an image
         const imageUrl = await this.getimgurl();
         const result = await this.analyzeImageLink(imageUrl);
-        console.log(result);
 
         const wordName = result.split("|")[0].toUpperCase().trim();
         const contentPart = result.split("|")[1] + "\n\n---\n\n" + `![${result.split("|")[0]}](${imageUrl})`;
@@ -133,10 +131,10 @@ export default class WordCards extends Plugin {
     // If there is an active file
     const fileExt = this.getFileExt(activeFile);
     if (fileExt === 'pdf') {
-      console.log(`Current active file: ${activeFile.name} is a PDF file`);
+      //console.log(`Current active file: ${activeFile.name} is a PDF file`);
       await this.processPdfFile();
     } else if (fileExt === 'md') {
-      console.log(`Current active file: ${activeFile.name} is a Markdown file`);
+      //console.log(`Current active file: ${activeFile.name} is a Markdown file`);
       await this.processMarkdownFile(activeFile);
     } else {
       console.warn('The current active file type is not supported.');
@@ -154,7 +152,7 @@ export default class WordCards extends Plugin {
     if (!this.settings.exist) {
       // If not overlapping cards
 
-      console.log(`Attempting to open: ${filePath}`);
+      //console.log(`Attempting to open: ${filePath}`);
       const file = this.app.vault.getAbstractFileByPath(filePath);
       if (file && file instanceof TFile) {
         if (mode === 'left') {
@@ -194,7 +192,7 @@ export default class WordCards extends Plugin {
       mode = mode.trim();
 
       // Log the file path and mode being attempted to open
-      console.log(`Attempting to open: ${filePath}, Mode: ${mode}`);
+      //console.log(`Attempting to open: ${filePath}, Mode: ${mode}`);
 
       // Get the file object
       const file = this.app.vault.getAbstractFileByPath(filePath);
@@ -213,7 +211,7 @@ export default class WordCards extends Plugin {
             if (currentFile && currentFile.basename.startsWith('word-')) {
               if (!targetLeaf) { // Only set the first matching leaf
                 targetLeaf = leaf;
-                console.log(`Found existing 'word-' leaf: ${currentFile.path}`);
+                //console.log(`Found existing 'word-' leaf: ${currentFile.path}`);
                 // Since iterateAllLeaves cannot break, we can only record the first leaf found
               }
             }
@@ -228,7 +226,7 @@ export default class WordCards extends Plugin {
 
         // If no existing 'word-' leaf was found, create a new leaf based on mode
         if (!targetLeaf) {
-          console.log(`No existing 'word-' leaf found, creating a new leaf based on mode "${mode}"`);
+          //console.log(`No existing 'word-' leaf found, creating a new leaf based on mode "${mode}"`);
 
           switch (mode) {
             case 'left':
@@ -265,7 +263,7 @@ export default class WordCards extends Plugin {
               await this.app.workspace.revealLeaf(targetLeaf);
             }
             new Notice(`Opened file: ${filePath}`);
-            console.log(`File opened in leaf: ${filePath}`);
+            //console.log(`File opened in leaf: ${filePath}`);
           } catch (error) {
             console.error(`Cannot open file in leaf: ${filePath}`, error);
             new Notice(`Cannot open file: ${filePath}`);
@@ -284,11 +282,11 @@ export default class WordCards extends Plugin {
   private async processPdfFile(): Promise<void> {
     try {
       const clipboardContent: string = clipboard.readText();
-      console.log(clipboardContent);
+      //console.log(clipboardContent);
       if (!clipboardContent) {
         const imageUrl = await this.getimgurl();
         const result = await this.analyzeImageLink(imageUrl);
-        console.log(result);
+        //console.log(result);
 
         const wordName = result.split("|")[0].toUpperCase().trim();
         const contentPart = result.split("|")[1] + "\n\n---\n\n" + `![${result.split("|")[0]}](${imageUrl})`;
@@ -345,10 +343,9 @@ export default class WordCards extends Plugin {
       // If no text is selected, handle as image
       const imageUrl = await this.getimgurl();
       const result = await this.analyzeImageLink(imageUrl);
-      console.log(result);
+      //console.log(result);
 
       const wordName = result.split("|")[0].toUpperCase().trim();
-      const contentPart = result.split("|")[1] + "\n\n---\n\n" + `![${result.split("|")[0]}](${imageUrl})`;
       const fileName = `word-${this.settings.sourceLanguage}-${wordName}.md`;
       const vaultPath = `${this.targetFolderPath}/${this.settings.sourceLanguage}/${fileName}`;
 
@@ -359,7 +356,7 @@ export default class WordCards extends Plugin {
     }
 
     // If text is selected, replace it in the original text with [[word-xx-...|...]]
-    await editor.replaceSelection(`[[word-${this.settings.sourceLanguage}-${selectedText}|${selectedText}]]`);
+    await editor.replaceSelection(`[[word-${this.settings.sourceLanguage}-${selectedText}|${editor.getSelection()}]]`);
     const wordName = selectedText.toUpperCase().trim();
 
     const fileName = `word-${this.settings.sourceLanguage}-${wordName}.md`;
@@ -372,9 +369,9 @@ export default class WordCards extends Plugin {
     if (!existingFile) {
       const gptResult = await this.queryGPTAboutWord(wordName);
       await this.app.vault.create(vaultPath, gptResult);
-      console.log(`File created: ${vaultPath}`);
+      //console.log(`File created: ${vaultPath}`);
     } else {
-      console.log(`File already exists: ${vaultPath}`);
+      //console.log(`File already exists: ${vaultPath}`);
     }
 
     await this.openFile(vaultPath, this.settings.openMode);
@@ -392,7 +389,7 @@ export default class WordCards extends Plugin {
         }
       ];
 
-      const response = await fetch(apiUrl, {
+      const response = await requestUrl({url:apiUrl, 
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -406,12 +403,12 @@ export default class WordCards extends Plugin {
         })
       });
 
-      if (!response.ok) {
-        const errorText = await response.text();
+      if (!response.json) {
+        const errorText = await response.text;
         throw new Error(`OpenAI API error: ${errorText}`);
       }
 
-      const jsonData = await response.json();
+      const jsonData = await response.json;
       const gptAnswer: string = jsonData.choices?.[0]?.message?.content?.trim() || 'No response';
       new Notice(`Card content for ${word} has been generated.`);
       return gptAnswer;
@@ -451,7 +448,7 @@ export default class WordCards extends Plugin {
     };
 
     try {
-      const response = await fetch(url, {
+      const response = await requestUrl({url:url, 
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -459,11 +456,11 @@ export default class WordCards extends Plugin {
         },
         body: JSON.stringify(body)
       });
-      if (!response.ok) {
+      if (!response.json) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
 
-      const data = await response.json();
+      const data = await response.json;
       return data.choices[0].message.content;
     } catch (error) {
       console.error("Error fetching response:", error);
@@ -480,14 +477,14 @@ export default class WordCards extends Plugin {
       const oldContent = await this.app.vault.read(abstractFile);
       const newContent = oldContent + (appendContent || '');
       await this.app.vault.modify(abstractFile, newContent);
-      console.log(`File updated: ${filePath}`);
+      //console.log(`File updated: ${filePath}`);
       new Notice(`File updated: ${filePath}`);
     } else {
       // If the file does not exist, create a new one
       const gptResult = await this.queryGPTAboutWord(wordName);
       const content = gptResult + (appendContent || '');
       await this.app.vault.create(filePath, content);
-      console.log(`File created: ${filePath}`);
+      //console.log(`File created: ${filePath}`);
       new Notice(`File created: ${filePath}`);
     }
 
@@ -498,9 +495,9 @@ export default class WordCards extends Plugin {
   private async getimgurl() {
     console.error('Clipboard is empty or cannot read text content, attempting to handle as image.');
     const img = clipboard.readImage().toDataURL().split(",")[1];
-    console.log(img);
-
-    const response = await fetch('https://api.imgur.com/3/image', {
+    //console.log(img);
+  
+    const response = await requestUrl({url:'https://api.imgur.com/3/image', 
       method: 'POST',
       headers: {
         Authorization: `Client-ID ${this.settings.clientId}`,
@@ -511,8 +508,8 @@ export default class WordCards extends Plugin {
         type: 'base64', // Declare data type
       }),
     });
-    const data = await response.json();
-    console.log(data);
+    const data = await response.json;
+    //console.log(data);
     const imageUrl = data.data.link;
     new Notice(`Image uploaded to Imgur, image URL: ${imageUrl}`, 5000);
     return imageUrl;
@@ -530,10 +527,10 @@ export default class WordCards extends Plugin {
     if (!existingFile) {
       const gptResult = await this.queryGPTAboutWord(wordName);
       await this.app.vault.create(vaultPath, gptResult);
-      console.log(`File created: ${vaultPath}`);
+      //console.log(`File created: ${vaultPath}`);
       new Notice(`New file created: ${vaultPath}`);
     } else {
-      console.log(`File already exists: ${vaultPath}`);
+      //console.log(`File already exists: ${vaultPath}`);
     }
     await this.openFile(vaultPath, this.settings.openMode);
     return;
