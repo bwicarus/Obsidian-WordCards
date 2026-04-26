@@ -29,6 +29,7 @@ const DEFAULT_SETTINGS: Partial<WordCardSettings> = {
 export default class WordCards extends Plugin {
   settings: WordCardSettings;
   private targetFolderPath: string = '';
+  private readonly wordCardPrefix = 'word-';
 
   /* 
    * ============ 1. Web API 读取文本的方法 =============
@@ -91,6 +92,22 @@ export default class WordCards extends Plugin {
     }
     parts.pop(); 
     return parts.join('/');
+  }
+
+  private buildWordCardPath(wordName: string) {
+    const normalizedWord = wordName.toUpperCase().trim();
+    const fileName = `${this.wordCardPrefix}${this.settings.sourceLanguage}-${normalizedWord}.md`;
+    const vaultPath = `${this.targetFolderPath}/${this.settings.sourceLanguage}/${fileName}`;
+    return { normalizedWord, vaultPath };
+  }
+
+  private async createWordCardFromImage(imageUrl: string, analysisResult: string): Promise<void> {
+    const [rawWord] = analysisResult.split('|');
+    const { normalizedWord, vaultPath } = this.buildWordCardPath(rawWord);
+
+    await this.createFolderIfNotExists(this.getFolderPath(vaultPath));
+    const imgurl = `\n\n---\n\n![${rawWord}](${imageUrl})`;
+    await this.createOrAppendFile(vaultPath, normalizedWord, imgurl);
   }
 
   async loadSettings() {
@@ -164,15 +181,7 @@ export default class WordCards extends Plugin {
         }
         const result = await this.analyzeImageLink(imageUrl);
         if (!result) return;
-
-        const wordName = result.split("|")[0].toUpperCase().trim();
-        const fileName = `word-${this.settings.sourceLanguage}-${wordName}.md`;
-        const vaultPath = `${this.targetFolderPath}/${this.settings.sourceLanguage}/${fileName}`;
-
-        await this.createFolderIfNotExists(this.getFolderPath(vaultPath));
-        const imgurl = "\n\n---\n\n" + `![${result.split("|")[0]}](${imageUrl})`;
-
-        await this.createOrAppendFile(vaultPath, wordName, imgurl);
+        await this.createWordCardFromImage(imageUrl, result);
       } else {
         // 有文本 => 直接新建文件
         await this.createNewNotefromtext(textClip);
@@ -197,14 +206,7 @@ export default class WordCards extends Plugin {
         }
         const result = await this.analyzeImageLink(imageUrl);
         if (!result) return;
-
-        const wordName = result.split("|")[0].toUpperCase().trim();
-        const fileName = `word-${this.settings.sourceLanguage}-${wordName}.md`;
-        const vaultPath = `${this.targetFolderPath}/${this.settings.sourceLanguage}/${fileName}`;
-
-        await this.createFolderIfNotExists(this.getFolderPath(vaultPath));
-        const imgurl = "\n\n---\n\n" + `![${result.split("|")[0]}](${imageUrl})`;
-        await this.createOrAppendFile(vaultPath, wordName, imgurl);
+        await this.createWordCardFromImage(imageUrl, result);
       } else {
         // 有文本
         await this.createNewNotefromtext(textClip);
@@ -224,28 +226,27 @@ export default class WordCards extends Plugin {
       // 不覆盖
       const file = this.app.vault.getAbstractFileByPath(filePath);
       if (file && file instanceof TFile) {
+        const openInLeaf = async (leaf: WorkspaceLeaf | null) => {
+          if (!leaf) {
+            new Notice(`Cannot open file in mode: ${mode}`);
+            return;
+          }
+          await leaf.openFile(file);
+          if (this.settings.active) await this.app.workspace.revealLeaf(leaf);
+        };
+
         if (mode === 'left') {
-          const leaf = this.app.workspace.getLeftLeaf(true);
-          await leaf.openFile(file);
-          if (this.settings.active) await this.app.workspace.revealLeaf(leaf);
+          await openInLeaf(this.app.workspace.getLeftLeaf(true));
         } else if (mode === 'right') {
-          const leaf = this.app.workspace.getRightLeaf(true);
-          await leaf.openFile(file);
-          if (this.settings.active) await this.app.workspace.revealLeaf(leaf);
+          await openInLeaf(this.app.workspace.getRightLeaf(true));
         } else if (mode === 'window') {
-          const leaf = this.app.workspace.getLeaf("split");
-          await leaf.openFile(file);
-          if (this.settings.active) await this.app.workspace.revealLeaf(leaf);
+          await openInLeaf(this.app.workspace.getLeaf("split"));
         } else if (mode === 'none') {
           return;
         } else if (mode === 'active') {
-          const leaf = this.app.workspace.getLeaf();
-          await leaf.openFile(file);
-          if (this.settings.active) await this.app.workspace.revealLeaf(leaf);
+          await openInLeaf(this.app.workspace.getLeaf());
         } else if (mode === 'tab') {
-          const leaf = this.app.workspace.getLeaf("tab");
-          await leaf.openFile(file);
-          if (this.settings.active) await this.app.workspace.revealLeaf(leaf);
+          await openInLeaf(this.app.workspace.getLeaf("tab"));
         }
 
         new Notice(`Opened file: ${filePath}`);
@@ -327,14 +328,7 @@ export default class WordCards extends Plugin {
         }
         const result = await this.analyzeImageLink(imageUrl);
         if (!result) return;
-
-        const wordName = result.split("|")[0].toUpperCase().trim();
-        const fileName = `word-${this.settings.sourceLanguage}-${wordName}.md`;
-        const vaultPath = `${this.targetFolderPath}/${this.settings.sourceLanguage}/${fileName}`;
-
-        await this.createFolderIfNotExists(this.getFolderPath(vaultPath));
-        const imgurl = "\n\n---\n\n" + `![${result.split("|")[0]}](${imageUrl})`;
-        await this.createOrAppendFile(vaultPath, wordName, imgurl);
+        await this.createWordCardFromImage(imageUrl, result);
         return;
       }
 
@@ -352,8 +346,7 @@ export default class WordCards extends Plugin {
       }
 
       const wordName = match[2].toUpperCase().trim();
-      const fileName = `word-${this.settings.sourceLanguage}-${wordName}.md`;
-      const vaultPath = `${this.targetFolderPath}/${this.settings.sourceLanguage}/${fileName}`;
+      const { vaultPath } = this.buildWordCardPath(wordName);
 
       await this.createFolderIfNotExists(this.getFolderPath(vaultPath));
       const newContent = `\n\n---\n\n${clipboardText.split("|")[0]}|${clipboardText.split("|")[1]}|${match[1].split("#")[0]}]]`;
@@ -383,23 +376,13 @@ export default class WordCards extends Plugin {
       }
       const result = await this.analyzeImageLink(imageUrl);
       if (!result) return;
-
-      const wordName = result.split("|")[0].toUpperCase().trim();
-      const fileName = `word-${this.settings.sourceLanguage}-${wordName}.md`;
-      const vaultPath = `${this.targetFolderPath}/${this.settings.sourceLanguage}/${fileName}`;
-
-      await this.createFolderIfNotExists(this.getFolderPath(vaultPath));
-      const imgurl = "\n\n---\n\n" + `![${result.split("|")[0]}](${imageUrl})`;
-      await this.createOrAppendFile(vaultPath, wordName, imgurl);
+      await this.createWordCardFromImage(imageUrl, result);
       return;
     }
 
     // 如果有选中文本 => [[word-xxx|xxx]]
     await editor.replaceSelection(`[[word-${this.settings.sourceLanguage}-${selectedText}|${editor.getSelection()}]]`);
-    const wordName = selectedText.toUpperCase().trim();
-
-    const fileName = `word-${this.settings.sourceLanguage}-${wordName}.md`;
-    const vaultPath = `${this.targetFolderPath}/${this.settings.sourceLanguage}/${fileName}`;
+    const { normalizedWord: wordName, vaultPath } = this.buildWordCardPath(selectedText);
 
     await this.createFolderIfNotExists(this.getFolderPath(vaultPath));
 
@@ -528,9 +511,7 @@ export default class WordCards extends Plugin {
 
   // =============== 用“Web API”读剪贴板做笔记 (文字) ===============
   private async createNewNotefromtext(textClip: string) {
-    const wordName = textClip.toUpperCase().trim();
-    const fileName = `word-${this.settings.sourceLanguage}-${wordName}.md`;
-    const vaultPath = `${this.targetFolderPath}/${this.settings.sourceLanguage}/${fileName}`;
+    const { normalizedWord: wordName, vaultPath } = this.buildWordCardPath(textClip);
 
     await this.createFolderIfNotExists(this.getFolderPath(vaultPath));
 
